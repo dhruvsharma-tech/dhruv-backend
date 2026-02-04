@@ -1,0 +1,11 @@
+{
+  "name": "dhruv-backend",
+  "version": "1.0.0",
+  "description": "this is backend learning series with project ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "dhruv sharma",
+  "license": "ISC"
+}
