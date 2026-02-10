@@ -1,6 +1,6 @@
 import dotenv from "dotenv"
 dotenv.config();
-import connestDB from "./db/db.js";
+import connestDB from "../src/db/db.js";
 import { app } from "./app.js";
 
 
