@@ -189,6 +189,36 @@ const refreshAccessToken=asyncHandler(async(req, res)=>{
     }
 })
 
+const changePassword=asyncHandler(async (req,res)=>{
+    const {newPassword,oldPassword}=req.body;
+
+    if(!newPassword?.trim()||!oldPassword?.trim()){
+        throw new ApiError(401,"all field are require")
+    }
+
+    const user = await User.findById(req.user._id)
+     if(!user){
+        throw new ApiError(400,"user not found")
+    }
+
+    const isPasswordCorrect= await user.isPasswordCorrect(oldPassword);
+
+    if(!isPasswordCorrect){
+        throw new ApiError(400,"password is incorrect")
+    }
+
+    user.password=newPassword
+    await user.save({validateBeforeSave:false})
+
+   return res.status(200).json(new ApiResponse(200,{},"password is changed successfully"))
+
+
+})
+
+const getCurrentUser=asyncHandler(async(req,res)=>{
+    return res.status(200).json(new ApiResponse(200,req.user,"user detail fetched successfully"))
+})
+
     
 
    
@@ -196,4 +226,4 @@ const refreshAccessToken=asyncHandler(async(req, res)=>{
     
 
 
-export {registerUser, loginUser,logOut,refreshAccessToken}
+export {registerUser, loginUser,logOut,refreshAccessToken,changePassword,getCurrentUser}
